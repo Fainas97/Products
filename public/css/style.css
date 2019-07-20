@@ -1,0 +1,51 @@
+html,
+body {
+    background-color: #FAFAFA;
+    color: #636b6f;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    background-color: #FAFAFA;
+}
+
+.center-login {
+    align-self: center;
+    padding: 20px;
+    background-color: #fff;
+    margin-top: 20%;
+    width: fit-content;
+}
+
+.errors {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+.content {
+    display: flex;
+    /* establish flex container */
+    flex-direction: column;
+    /* make main axis vertical */
+    justify-content: center;
+    /* center items vertically, in this case */
+    align-items: center;
+    padding: 20px;
+}
+
+.content-admin {
+    padding: 20px;
+    box-shadow: 0px 0px 36px 15px rgba(0, 0, 0, 0.20);
+}
+
+.line {
+    color: red;
+}

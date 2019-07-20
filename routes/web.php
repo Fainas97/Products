@@ -9,12 +9,24 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
-Route::post('/admin', 'UserController@login');
-Route::get('/logout', 'UserController@logout');
+Route::get('/login', 'UserController@create')->name('login');
+Route::post('/login', 'UserController@login');
 
-Route::get('/admin', function () {
-    return view('login');
+Route::get('/logout', 'UserController@logout')->name('logout');
+
+Route::get('/', 'ProductController@show');
+
+Route::group(['prefix' => 'product'], function () {
+
+    Route::get('/create', 'ProductController@create')->name('add');
+    Route::post('/create', 'ProductController@store');
+
+    Route::get('/{id}', 'ProductController@index');
+
+    Route::get('/{id}/edit', 'ProductController@edit')->name('edit');
+    Route::put('/{id}/update', 'ProductController@update')->name('update');
+
+    Route::delete('/{id}', 'ProductController@destroy')->name('destroy');
 });
-

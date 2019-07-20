@@ -11,6 +11,7 @@ class ProductController extends Controller
 
     public function __construct(Product $product)
     {
+        $this->middleware('auth', ['except' => ['show', 'index']]);
         $this->product = $product;
     }
 
@@ -19,9 +20,10 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function show()
     {
-        //
+        $products = $this->product->paginate(10);
+        return view('home', compact('products'));
     }
 
     /**
@@ -31,7 +33,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('product.create');
     }
 
     /**
@@ -42,51 +44,92 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dataValid = $this->validate($request, [
+            'name' => 'required|max:60',
+            'sku' => 'required|string',
+            'price' => 'required|numeric',
+            'special_price' => 'required|numeric',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|string',
+        ]);
+        $dataValid['status'] = $request->status == true ? 1 : 0;
+
+
+        $file = $request->file('image');
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('/images'.'/'), $fileName);
+
+        $dataValid['image'] = $fileName;
+
+        $this->product->create($dataValid);
+        return redirect('/')->withSuccess('Product has been added');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function index($id)
     {
-        //
+        $product = $this->product->findOrFail($id);
+        return view('product.index', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = $this->product->findOrFail($id);
+        return view('product.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $product = $this->product->findOrFail($id);
+
+        $dataValid = $this->validate($request, [
+            'name' => 'required|max:60',
+            'sku' => 'required|string',
+            'price' => 'required|numeric',
+            'special_price' => 'required|numeric',
+            'image' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|string',
+        ]);
+        $dataValid['status'] = $request->status == true ? 1 : 0;
+
+        if ($request->has('image')){
+            $file = $request->file('image');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('/images'.'/'), $fileName);
+
+            $dataValid['image'] = $fileName;
+
+            if(\File::exists(public_path('images' . '/' . $product->image))){
+                \File::delete(public_path('images' . '/' . $product->image));
+            }
+        }
+        $product->update($dataValid);
+        return redirect('/product' . '/' . $id)->withSuccess('Product has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Product $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $this->product->findOrFail($id)->delete();
+        return redirect('/');
     }
 }
