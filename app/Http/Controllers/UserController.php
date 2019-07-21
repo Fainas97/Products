@@ -13,6 +13,7 @@ class UserController extends Controller
 
     public function __construct(User $user)
     {
+        $this->middleware('auth', ['except' => ['create', 'login']]);
         $this->user = $user;
     }
 
@@ -25,7 +26,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'username' => 'required',
-            'password' => 'required|alpha_num|min:3',
+            'password' => 'required',
         ]);
 
         $credentials = $request->only('username', 'password');

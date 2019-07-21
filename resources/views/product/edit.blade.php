@@ -13,43 +13,44 @@
         {{ csrf_field() }}
         <div class="form-group row row-white">
             <label for="name" class="col-sm-3 col-form-label">Name</label>
-            <div class="col">
+            <div class="col" style="padding-right: 0px">
                 <input name="name" type="text" class="form-control" value="{{$product->name}}">
             </div>
         </div>
         <div class="form-group row row-white">
             <label for="status" class="col-sm-3 col-form-label">Status</label>
-            <div class="col">
+            <div class="col" style="padding-right: 0px">
                 <input name="status" type="checkbox" class="form-control">
             </div>
         </div>
         <div class="form-group row row-white">
             <label for="sku" class="col-sm-3 col-form-label">SKU</label>
-            <div class="col">
+            <div class="col" style="padding-right: 0px">
                 <input name="sku" type="text" class="form-control" value="{{$product->sku}}">
             </div>
         </div>
         <div class="form-group row row-white">
             <label for="price" class="col-sm-3 col-form-label">Price</label>
-            <div class="col">
+            <div class="col" style="padding-right: 0px">
                 <input name="price" type="text" class="form-control" value="{{$product->price}}">
             </div>
         </div>
         <div class="form-group row row-white">
             <label class="col-sm-3 col-form-label">Spec Price</label>
-            <div class="col">
+            <div class="col" style="padding-right: 0px">
                 <input name="special_price" type="text" class="form-control" value="{{$product->special_price}}">
             </div>
         </div>
         <div class="form-group row row-white">
             <label for="description" class="col-sm-3 col-form-label">Description</label>
-            <div class="col">
+            <div class="col" style="padding-right: 0px">
                 <textarea name="description" type="text" class="form-control">{{$product->description}}</textarea>
             </div>
         </div>
         <div class="form-group row">
             <div class="col">
-                <input type="file" name="image" class="form-control">
+                <input type="file" name="image" class="custom-file-input">
+                <label class="custom-file-label">Choose image</label>
             </div>
         </div>
         <div class="form-group row">

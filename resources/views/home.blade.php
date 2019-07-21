@@ -7,6 +7,7 @@
     @if(session('success'))
     <p class="success">{{session('success')}}</p>
     @endif
+    <button class="btn btn-primary" data-url="{{ route('destroyAll') }}">Delete All Selected</button>
     <table class="table table-bordered content-admin">
         <thead>
             <tr>
@@ -38,7 +39,6 @@
                 </td>
             </tr>
             @endforeach
-
         </tbody>
     </table>
     {{ $products->links() }}

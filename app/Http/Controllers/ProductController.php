@@ -129,11 +129,17 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = $this->product->findOrFail($id);
-        
+
         if (\File::exists(public_path('images' . '/' . $product->image))) {
             \File::delete(public_path('images' . '/' . $product->image));
         }
         $product->delete();
+        return redirect('/')->withSuccess('Product has been deleted');
+    }
+
+    public function destroyAll($ids)
+    {
+        $this->product->whereIn('id', explode(",", $ids))->delete();
         return redirect('/')->withSuccess('Product has been deleted');
     }
 }
