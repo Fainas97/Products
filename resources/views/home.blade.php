@@ -1,10 +1,11 @@
 @extends('layout.app')
 @section('title', 'Home')
 @section('content')
-@auth
 <div class="content">
+    @auth
+    <h2>All products</h2>
     @if(session('success'))
-        <p class="success">{{session('success')}}</p>
+    <p class="success">{{session('success')}}</p>
     @endif
     <table class="table table-bordered content-admin">
         <thead>
@@ -35,12 +36,40 @@
                 </td>
             </tr>
             @endforeach
-            {{ $products->links() }}
+            
         </tbody>
     </table>
-</div>
-@else
-
+    {{ $products->links() }}
+    @else
+    @php
+    $count = $products->count()
+    @endphp
+    @for($i = 0; $i < ceil($products->count() / 3); $i++) 
+    <div class="row" style="width: 80%">
+        @for($j = $i * 3; $j < 3 * $i + 3; $j++)
+        @if ($count == $j) 
+            @break 2;
+        @endif
+        <div class="col-3 border grid-view">
+            <div class="row">
+                <img src="/images/{{ $products[$j]->image }}" style="width:100%; height:100%">
+            </div>
+            <div class="row">
+                <div class="col-5 border">
+                    {{$products[$j]->name}}
+                </div>
+                <div class="col-3 border">
+                    {{$products[$j]->sku}}
+                </div>
+                <div class="col-4 border">
+                    {{$products[$j]->price}}$
+                </div>
+            </div>
+        </div>
+        @endfor
+    </div>
+@endfor
+{{ $products->links() }}
 @endauth
 </div>
 @endsection

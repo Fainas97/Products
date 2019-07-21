@@ -10,37 +10,37 @@
     @endif
     <form method="post" action="/product/create" enctype="multipart/form-data">
         {{ csrf_field() }}
-        <div class="form-group row">
+        <div class="form-group row row-white">
             <label for="name" class="col-sm-3 col-form-label">Name</label>
             <div class="col">
                 <input name="name" type="text" class="form-control" placeholder="name">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row row-white">
             <label for="status" class="col-sm-3 col-form-label">Status</label>
             <div class="col">
                 <input name="status" type="checkbox" class="form-control">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row row-white">
             <label class="col-sm-3 col-form-label">SKU</label>
             <div class="col">
                 <input name="sku" type="text" class="form-control" placeholder="sku">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row row-white">
             <label for="price" class="col-sm-4 col-form-label">Price</label>
             <div class="col">
                 <input name="price" type="text" class="form-control" placeholder="price">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row row-white">
             <label class="col-sm-4 col-form-label">Spec Price</label>
             <div class="col">
                 <input name="special_price" type="text" class="form-control" placeholder="special price">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row row-white">
             <label for="description" class="col-sm-3 col-form-label">Description</label>
             <div class="col">
                 <textarea name="description" type="text" class="form-control" placeholder="description"></textarea>

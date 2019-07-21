@@ -22,7 +22,7 @@ class ProductController extends Controller
      */
     public function show()
     {
-        $products = $this->product->paginate(10);
+        $products = $this->product->paginate(9);
         return view('home', compact('products'));
     }
 
@@ -47,8 +47,8 @@ class ProductController extends Controller
         $dataValid = $this->validate($request, [
             'name' => 'required|max:60',
             'sku' => 'required|string',
-            'price' => 'required|numeric',
-            'special_price' => 'required|numeric',
+            'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'special_price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
         ]);
@@ -100,8 +100,8 @@ class ProductController extends Controller
         $dataValid = $this->validate($request, [
             'name' => 'required|max:60',
             'sku' => 'required|string',
-            'price' => 'required|numeric',
-            'special_price' => 'required|numeric',
+            'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'special_price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'image' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
         ]);
@@ -130,6 +130,6 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $this->product->findOrFail($id)->delete();
-        return redirect('/');
+        return redirect('/')->withSuccess('Product has been deleted');
     }
 }
