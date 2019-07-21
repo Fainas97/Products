@@ -65,3 +65,16 @@ body {
 .row-white {
     background-color: white;
 }
+
+a {
+    color: #636b6f; 
+    text-decoration: none;
+}
+
+.form {
+    display: inline-block;
+}
+
+.top-space {
+    margin-top: 5%;
+}

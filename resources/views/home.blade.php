@@ -28,15 +28,17 @@
                 <td>{{$product->updated_at}}</td>
                 <td align="center">
                     <a href="{{ route('edit', $product->id) }}">
-                        <i class="fa fa-pencil"></i>
+                        <button><i class="fa fa-pencil"></i></button>
                     </a>
-                    <a href="{{ route('destroy', $product->id) }}">
-                        <i class="fa fa-trash" style="color: red"></i>
-                    </a>
+                    <form class="form" action="{{ route('destroy', $product->id) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit"><i class="fa fa-trash" style="color: red"></i></button>
+                    </form>
                 </td>
             </tr>
             @endforeach
-            
+
         </tbody>
     </table>
     {{ $products->links() }}
@@ -44,30 +46,27 @@
     @php
     $count = $products->count()
     @endphp
-    @for($i = 0; $i < ceil($products->count() / 3); $i++) 
-    <div class="row" style="width: 80%">
-        @for($j = $i * 3; $j < 3 * $i + 3; $j++)
-        @if ($count == $j) 
-            @break 2;
-        @endif
-        <div class="col-3 border grid-view">
-            <div class="row">
-                <img src="/images/{{ $products[$j]->image }}" style="width:100%; height:100%">
-            </div>
-            <div class="row">
-                <div class="col-5 border">
-                    {{$products[$j]->name}}
+    @for($i = 0; $i < ceil($products->count() / 3); $i++)
+        <div class="row" style="width: 80%">
+            @for($j = $i * 3; $j < 3 * $i + 3; $j++) @if ($count==$j) @break 2; @endif <div
+                class="col-3 border grid-view">
+                <div class="row">
+                    <img src="/images/{{ $products[$j]->image }}" style="width:100%; height:100%">
                 </div>
-                <div class="col-3 border">
-                    {{$products[$j]->sku}}
+                <div class="row">
+                    <div class="col-5 border">
+                        <a href="{{ route('review', $products[$j]->id) }}">{{$products[$j]->name}}</a>
+                    </div>
+                    <div class="col-3 border">
+                        {{$products[$j]->sku}}
+                    </div>
+                    <div class="col-4 border">
+                        {{$products[$j]->price}}$
+                    </div>
                 </div>
-                <div class="col-4 border">
-                    {{$products[$j]->price}}$
-                </div>
-            </div>
         </div>
         @endfor
-    </div>
+</div>
 @endfor
 {{ $products->links() }}
 @endauth

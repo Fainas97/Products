@@ -1,7 +1,5 @@
 @extends('layout.app')
-
 @section('title', 'Login')
-
 @yield('top-bar')
 @section('content')
 <div class="container">

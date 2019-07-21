@@ -54,10 +54,9 @@ class ProductController extends Controller
         ]);
         $dataValid['status'] = $request->status == true ? 1 : 0;
 
-
         $file = $request->file('image');
         $fileName = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('/images'.'/'), $fileName);
+        $file->move(public_path('/images' . '/'), $fileName);
 
         $dataValid['image'] = $fileName;
 
@@ -107,14 +106,14 @@ class ProductController extends Controller
         ]);
         $dataValid['status'] = $request->status == true ? 1 : 0;
 
-        if ($request->has('image')){
+        if ($request->has('image')) {
             $file = $request->file('image');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('/images'.'/'), $fileName);
+            $file->move(public_path('/images' . '/'), $fileName);
 
             $dataValid['image'] = $fileName;
 
-            if(\File::exists(public_path('images' . '/' . $product->image))){
+            if (\File::exists(public_path('images' . '/' . $product->image))) {
                 \File::delete(public_path('images' . '/' . $product->image));
             }
         }
@@ -129,7 +128,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $this->product->findOrFail($id)->delete();
+        $product = $this->product->findOrFail($id);
+        
+        if (\File::exists(public_path('images' . '/' . $product->image))) {
+            \File::delete(public_path('images' . '/' . $product->image));
+        }
+        $product->delete();
         return redirect('/')->withSuccess('Product has been deleted');
     }
 }

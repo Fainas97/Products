@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('title', 'Add product')
 @section('content')
-<div class="content">
+<div class="content top-space">
     <h2>Add product</h2>
     @if($errors->any())
     @foreach ($errors->all() as $error)

@@ -1,11 +1,11 @@
 @extends('layout.app')
 @section('title', 'Product review')
 @section('content')
-@if(session('success'))
-<h5 class="success">{{session('success')}}</h5>
-@endif
 <div class="content">
     <h1>Product review</h1>
+    @if(session('success'))
+    <h5 class="success">{{session('success')}}</h5>
+    @endif
     <div class="row">
         <div class="col-sm">
             <img src="/images/{{ $product->image }}" style="width:100%; height:100%">
