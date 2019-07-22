@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="form-group row row-white">
-            <label class="col-sm-4 col-form-label">Spec Price</label>
+            <label class="col-sm-4 col-form-label">Discount*</label>
             <div class="col" style="padding-right: 0px">
                 <input name="discount" type="text" class="form-control" placeholder="special price">
             </div>

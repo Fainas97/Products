@@ -29,6 +29,6 @@ class ReviewController extends Controller
         
         $this->review->create($dataValid);
         $product = $this->product->with('review')->findOrFail($dataValid['product_id']);
-        return view('product.index', compact('product'));
+        return \Redirect::route('review', $product);
     }
 }

@@ -50,7 +50,7 @@ class ProductController extends Controller
             'name' => 'required|max:60',
             'sku' => 'required|string|max:4',
             'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'discount' => 'sometimes|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'discount' => 'sometimes|nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
         ]);
@@ -102,7 +102,7 @@ class ProductController extends Controller
             'name' => 'required|max:60',
             'sku' => 'required|string|max:4',
             'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'discount' => 'sometimes|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'discount' => 'sometimes|nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'image' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
         ]);

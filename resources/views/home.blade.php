@@ -22,7 +22,7 @@
         <tbody>
             @foreach ($products as $product)
             <tr>
-                <td>{{$product->name}}</td>
+                <td><a href="{{ route('review', $product->id) }}">{{$product->name}}</a></td>
                 <td>{{$product->sku}}</td>
                 <td>{{$product->price}}</td>
                 <td>{{$product->created_at}}</td>

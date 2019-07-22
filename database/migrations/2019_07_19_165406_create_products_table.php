@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('sku');
             $table->boolean('status');
             $table->float('price');
-            $table->float('discount')->default(0);
+            $table->float('discount')->nullable();
             $table->string('image');
             $table->text('description');
             $table->timestamps();

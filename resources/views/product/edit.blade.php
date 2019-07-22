@@ -20,7 +20,7 @@
         <div class="form-group row row-white">
             <label for="status" class="col-sm-3 col-form-label">Status</label>
             <div class="col" style="padding-right: 0px">
-                <input name="status" type="checkbox" class="form-control">
+                <input name="status" type="checkbox" class="form-control" @if($product->status) checked @endif>
             </div>
         </div>
         <div class="form-group row row-white">
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="form-group row row-white">
-            <label class="col-sm-3 col-form-label">Spec Price</label>
+            <label class="col-sm-3 col-form-label">Discount*</label>
             <div class="col" style="padding-right: 0px">
                 <input name="discount" type="text" class="form-control" value="{{$product->special_price}}">
             </div>
@@ -50,7 +50,7 @@
         <div class="form-group row">
             <div class="col">
                 <input type="file" name="image" class="custom-file-input">
-                <label class="custom-file-label">Choose image</label>
+                <label class="custom-file-label">Choose image*</label>
             </div>
         </div>
         <div class="form-group row">
