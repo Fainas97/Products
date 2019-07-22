@@ -16,18 +16,21 @@ Route::post('/login', 'UserController@login');
 
 Route::get('/logout', 'UserController@logout')->name('logout');
 
-Route::get('/', 'ProductController@show');
+Route::get('/', 'ProductController@index');
 
 Route::group(['prefix' => 'product'], function () {
 
     Route::get('/create', 'ProductController@create')->name('add');
     Route::post('/create', 'ProductController@store');
 
-    Route::get('/{id}', 'ProductController@index')->name('review');
+    Route::get('/{id}', 'ProductController@show')->name('review');
 
     Route::get('/{id}/edit', 'ProductController@edit')->name('edit');
     Route::put('/{id}/update', 'ProductController@update')->name('update');
 
     Route::delete('/{id}', 'ProductController@destroy')->name('destroy');
     Route::delete('/deleteAll', 'ProductController@destroyAll')->name('destroyAll');
+
+    Route::get('/rating/{id}', 'RatingController@index');
+    Route::post('/rating', 'RatingController@store');
 });

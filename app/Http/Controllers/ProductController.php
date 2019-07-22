@@ -20,7 +20,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function index()
     {
         $products = $this->product->paginate(9);
         return view('home', compact('products'));
@@ -69,7 +69,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function show($id)
     {
         $product = $this->product->findOrFail($id);
         return view('product.index', compact('product'));

@@ -23,7 +23,17 @@
             <div class="row">
                 <h3>Aprašymas</h3>
             </div>
-            <div class="row line-break">
+            <div class="row rating" style="float: left">
+                <div id="{{ $product->id }}" class="rate_widget">
+                    <div class="star_1 ratings_stars"></div>
+                    <div class="star_2 ratings_stars"></div>
+                    <div class="star_3 ratings_stars"></div>
+                    <div class="star_4 ratings_stars"></div>
+                    <div class="star_5 ratings_stars"></div>
+                    <div class="total_votes">vote data</div>
+                </div>
+            </div>
+            <div class="row line-break" style="clear: both">
                 {{ $product->description }}
             </div>
         </div>
