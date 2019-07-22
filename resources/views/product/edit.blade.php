@@ -10,7 +10,7 @@
     @endif
     <form method="post" action="{{ route('update', $product->id) }}" role="form" enctype="multipart/form-data">
         @method('PUT')
-        {{ csrf_field() }}
+        @csrf
         <div class="form-group row row-white">
             <label for="name" class="col-sm-3 col-form-label">Name</label>
             <div class="col" style="padding-right: 0px">
@@ -38,7 +38,7 @@
         <div class="form-group row row-white">
             <label class="col-sm-3 col-form-label">Spec Price</label>
             <div class="col" style="padding-right: 0px">
-                <input name="special_price" type="text" class="form-control" value="{{$product->special_price}}">
+                <input name="discount" type="text" class="form-control" value="{{$product->special_price}}">
             </div>
         </div>
         <div class="form-group row row-white">

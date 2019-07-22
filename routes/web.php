@@ -33,4 +33,6 @@ Route::group(['prefix' => 'product'], function () {
 
     Route::get('/rating/{id}', 'RatingController@index');
     Route::post('/rating', 'RatingController@store');
+
+    Route::post('/review', 'ReviewController@store');
 });

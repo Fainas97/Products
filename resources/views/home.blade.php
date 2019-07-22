@@ -54,14 +54,20 @@
                     <img src="/images/{{ $products[$j]->image }}" style="width:100%; height:100%">
                 </div>
                 <div class="row">
-                    <div class="col-5 border">
+                    <div class="col-4 border" style="padding: 5px">
                         <a href="{{ route('review', $products[$j]->id) }}">{{$products[$j]->name}}</a>
                     </div>
-                    <div class="col-3 border">
+                    <div class="col-2 border" style="padding: 5px">
                         {{$products[$j]->sku}}
                     </div>
-                    <div class="col-4 border">
-                        {{$products[$j]->price}}$
+                    <div class="col-1 border" style="padding: 5px">
+                        {{$products[$j]->review->count()}}
+                    </div>
+                    <div class="col border" style="padding: 5px">
+                        @if ($products[$j]->discount > 0)
+                        <span style="text-decoration: line-through">{{$products[$j]->price * 1.21}}$</span>
+                        @endif
+                        {{number_format($products[$j]->price * 1.21 - $products[$j]->discount, 2)}}$
                     </div>
                 </div>
         </div>

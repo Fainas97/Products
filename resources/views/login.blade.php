@@ -5,7 +5,7 @@
 <div class="container">
     <div class="center-login">
         <form method="post" action="/login">
-            {{ csrf_field() }}
+            @csrf
             <legend>Admin login</legend>
             <hr>
             @if($errors->any())
@@ -26,5 +26,5 @@
             <button type="submit" class="btn btn-primary" style="float: right">Login</button>
         </form>
         <div>
-    </div>
-@endsection
+        </div>
+        @endsection

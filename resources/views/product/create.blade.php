@@ -9,7 +9,7 @@
     @endforeach
     @endif
     <form method="post" action="/product/create" enctype="multipart/form-data">
-        {{ csrf_field() }}
+        @csrf
         <div class="form-group row row-white">
             <label for="name" class="col-sm-3 col-form-label">Name</label>
             <div class="col" style="padding-right: 0px">
@@ -37,7 +37,7 @@
         <div class="form-group row row-white">
             <label class="col-sm-4 col-form-label">Spec Price</label>
             <div class="col" style="padding-right: 0px">
-                <input name="special_price" type="text" class="form-control" placeholder="special price">
+                <input name="discount" type="text" class="form-control" placeholder="special price">
             </div>
         </div>
         <div class="form-group row row-white">

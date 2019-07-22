@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Review;
 use App\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    private $product;
+    private $product, $review;
 
-    public function __construct(Product $product)
+    public function __construct(Product $product, Review $review)
     {
         $this->middleware('auth', ['except' => ['show', 'index']]);
         $this->product = $product;
+        $this->review = $review;
     }
 
     /**
@@ -46,9 +48,9 @@ class ProductController extends Controller
     {
         $dataValid = $this->validate($request, [
             'name' => 'required|max:60',
-            'sku' => 'required|string',
+            'sku' => 'required|string|max:4',
             'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'special_price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'discount' => 'sometimes|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
         ]);
@@ -71,7 +73,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = $this->product->findOrFail($id);
+        $product = $this->product->with('review')->findOrFail($id);
         return view('product.index', compact('product'));
     }
 
@@ -98,9 +100,9 @@ class ProductController extends Controller
 
         $dataValid = $this->validate($request, [
             'name' => 'required|max:60',
-            'sku' => 'required|string',
+            'sku' => 'required|string|max:4',
             'price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            'special_price' => 'required|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            'discount' => 'sometimes|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'image' => 'sometimes|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|string',
         ]);
