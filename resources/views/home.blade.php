@@ -7,7 +7,6 @@
     @if(session('success'))
     <p class="success">{{session('success')}}</p>
     @endif
-    <button class="btn btn-primary" data-url="{{ route('destroyAll') }}">Delete All Selected</button>
     <table class="table table-bordered content-admin">
         <thead>
             <tr>
@@ -44,7 +43,8 @@
     {{ $products->links() }}
     @else
     @php
-    $count = $products->count()
+    $count = $products->count();
+    $globalDis = config('price.global');
     @endphp
     @for($i = 0; $i < ceil($products->count() / 3); $i++)
         <div class="row" style="width: 80%">
@@ -64,10 +64,20 @@
                         {{$products[$j]->review->count()}}
                     </div>
                     <div class="col border" style="padding: 5px">
-                        @if ($products[$j]->discount > 0)
-                        <span style="text-decoration: line-through">{{$products[$j]->price * 1.21}}$</span>
+                        {{number_format($prices[$j], 2)}}$
+                        @if (($products[$j]->discount > 0 ||
+                        substr($globalDis, -1) != '%' && $globalDis > 0 ||
+                        substr($globalDis, -1) == '%' && substr($globalDis, 0, -1) > 0) && config('price.flag'))
+                        <span style="text-decoration: line-through">
+                            {{number_format($products[$j]->price / 100 * config('price.tax') + $products[$j]->price, 2)}}$
+                        </span>
+                        @elseif (($products[$j]->discount > 0 ||
+                        substr($globalDis, -1) != '%' && $globalDis > 0 ||
+                        substr($globalDis, -1) == '%' && substr($globalDis, 0, -1) > 0) && !config('price.flag'))
+                        <span style="text-decoration: line-through">
+                            {{$products[$j]->price}}$
+                        </span>
                         @endif
-                        {{number_format($products[$j]->price * 1.21 - $products[$j]->discount, 2)}}$
                     </div>
                 </div>
         </div>

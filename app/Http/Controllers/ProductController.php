@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Review;
 use App\Product;
+use App\Review;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -25,7 +25,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = $this->product->paginate(9);
-        return view('home', compact('products'));
+        $prices = $this->product->pricesCalculation($products);
+        return view('home', compact('products', 'prices'));
     }
 
     /**
@@ -74,7 +75,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = $this->product->with('review')->findOrFail($id);
-        return view('product.index', compact('product'));
+        $price = $this->product->priceCalculation($product);
+        return view('product.index', compact('product', 'price'));
     }
 
     /**
@@ -136,12 +138,6 @@ class ProductController extends Controller
             \File::delete(public_path('images' . '/' . $product->image));
         }
         $product->delete();
-        return redirect('/')->withSuccess('Product has been deleted');
-    }
-
-    public function destroyAll($ids)
-    {
-        $this->product->whereIn('id', explode(",", $ids))->delete();
         return redirect('/')->withSuccess('Product has been deleted');
     }
 }

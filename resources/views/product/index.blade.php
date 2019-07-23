@@ -6,6 +6,9 @@
     @if(session('success'))
     <h5 class="success">{{session('success')}}</h5>
     @endif
+    @php
+    $globalDis = config('price.global');
+    @endphp
     <div class="row">
         <div class="col-sm">
             <img src="/images/{{ $product->image }}" style="width:100%; height:100%">
@@ -19,10 +22,20 @@
             </div>
             <div class="row">
                 <h2>
-                    Price : @if ($product->discount > 0)
-                    <span style="text-decoration: line-through">{{$product->price * 1.21}}$</span>
+                    Price : {{number_format($price, 2)}}$
+                    @if (($product->discount > 0 ||
+                    substr($globalDis, -1) != '%' && $globalDis > 0 ||
+                    substr($globalDis, -1) == '%' && substr($globalDis, 0, -1) > 0) && config('price.flag'))
+                    <span style="text-decoration: line-through">
+                        {{number_format($product->price  / 100 * config('price.tax') + $product->price, 2)}}$
+                    </span>
+                    @elseif (($product->discount > 0 ||
+                    substr($globalDis, -1) != '%' && $globalDis > 0 ||
+                    substr($globalDis, -1) == '%' && substr($globalDis, 0, -1) > 0) && !config('price.flag'))
+                    <span style="text-decoration: line-through">
+                        {{$product->price}}$
+                    </span>
                     @endif
-                    {{number_format($product->price * 1.21 - $product->discount, 2)}}$
                 </h2>
             </div>
             <div class="row rating" style="float: left">

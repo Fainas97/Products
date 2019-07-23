@@ -29,7 +29,6 @@ Route::group(['prefix' => 'product'], function () {
     Route::put('/{id}/update', 'ProductController@update')->name('update');
 
     Route::delete('/{id}', 'ProductController@destroy')->name('destroy');
-    Route::delete('/deleteAll', 'ProductController@destroyAll')->name('destroyAll');
 
     Route::get('/rating/{id}', 'RatingController@index');
     Route::post('/rating', 'RatingController@store');

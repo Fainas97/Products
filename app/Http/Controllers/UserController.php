@@ -47,6 +47,7 @@ class UserController extends Controller
         return redirect()->back()
             ->withErrors([
                 'error' => 'Username or password is invalid.',
-            ]);
+            ])
+            ->withInput($request->only('username', 'password'));
     }
 }

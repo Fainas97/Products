@@ -15,12 +15,12 @@
             @endif
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="username" name="username" id="username" class="form-control">
+                <input type="username" name="username" id="username" class="form-control"  value="{{ old('username') }}">
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-control">
+                <input type="password" name="password" id="password" class="form-control"  value="{{ old('password') }}">
             </div>
 
             <button type="submit" class="btn btn-primary" style="float: right">Login</button>
